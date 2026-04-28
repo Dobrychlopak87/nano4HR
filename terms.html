@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Warunki korzystania – nano4HR</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; color: #333; }
+    h1 { color: #3B82F6; }
+    .lang-switch { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; }
+    .lang-switch button { padding: 0.4rem 1rem; border: 1px solid #3B82F6; background: white; color: #3B82F6; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .lang-switch button.active { background: #3B82F6; color: white; }
+    .content { display: none; }
+    .content.active-lang { display: block; }
+  </style>
+</head>
+<body>
+  <div class="lang-switch">
+    <button data-lang="pl" class="active">Polski</button>
+    <button data-lang="en">English</button>
+    <button data-lang="ua">Українська</button>
+  </div>
+
+  <div class="content active-lang" id="pl">
+    <h1>Warunki korzystania – nano4HR</h1>
+    <ol>
+      <li>Aplikacja udostępniana jest w celach ewidencyjnych i nie zastępuje oficjalnych systemów kadrowo-płacowych.</li>
+      <li>Użytkownik ponosi pełną odpowiedzialność za wprowadzane dane oraz ich zgodność z obowiązującym prawem (w tym z Kodeksem Pracy).</li>
+      <li>Autorzy aplikacji nie gwarantują nieprzerwanej dostępności narzędzia i nie ponoszą odpowiedzialności za ewentualne błędy w obliczeniach.</li>
+      <li>Korzystanie z funkcji Premium wymagających Pi Network odbywa się na zasadach określonych przez Pi Network.</li>
+    </ol>
+    <p>Kontakt: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <div class="content" id="en">
+    <h1>Terms of Service – nano4HR</h1>
+    <ol>
+      <li>The app is provided for record-keeping purposes and does not replace official HR/payroll systems.</li>
+      <li>The user assumes full responsibility for the data entered and its compliance with applicable law (including the Labour Code).</li>
+      <li>The app authors do not guarantee uninterrupted availability of the tool and accept no liability for any calculation errors.</li>
+      <li>Use of Premium features involving Pi Network is governed by Pi Network's own terms.</li>
+    </ol>
+    <p>Contact: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <div class="content" id="ua">
+    <h1>Умови використання – nano4HR</h1>
+    <ol>
+      <li>Додаток надається для облікових цілей та не замінює офіційні кадрово-бухгалтерські системи.</li>
+      <li>Користувач несе повну відповідальність за внесені дані та їх відповідність чинному законодавству (включаючи Кодекс законів про працю).</li>
+      <li>Автори додатка не гарантують безперебійної доступності інструменту та не несуть відповідальності за можливі помилки в розрахунках.</li>
+      <li>Використання Premium-функцій, що потребують Pi Network, регулюється умовами Pi Network.</li>
+    </ol>
+    <p>Контакт: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <script>
+    (function() {
+      const buttons = document.querySelectorAll('.lang-switch button');
+      const contents = document.querySelectorAll('.content');
+      
+      function setLang(lang) {
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        contents.forEach(c => c.classList.toggle('active-lang', c.id === lang));
+        try { localStorage.setItem('nano4hr-docs-lang', lang); } catch(e) {}
+      }
+      
+      buttons.forEach(b => {
+        b.addEventListener('click', () => setLang(b.dataset.lang));
+      });
+      
+      let lang = 'pl';
+      try {
+        const stored = localStorage.getItem('nano4hr-docs-lang');
+        if (stored && ['pl','en','ua'].includes(stored)) lang = stored;
+        else {
+          const browserLang = (navigator.language || '').slice(0,2);
+          if (browserLang === 'uk') lang = 'ua';
+          else if (browserLang === 'en') lang = 'en';
+        }
+      } catch(e) {}
+      setLang(lang);
+    })();
+  </script>
+</body>
+</html>
