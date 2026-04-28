@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Polityka prywatności – nano4HR</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; color: #333; }
+    h1 { color: #3B82F6; }
+    .lang-switch { margin-bottom: 1.5rem; display: flex; gap: 0.5rem; }
+    .lang-switch button { padding: 0.4rem 1rem; border: 1px solid #3B82F6; background: white; color: #3B82F6; border-radius: 6px; cursor: pointer; font-weight: 600; }
+    .lang-switch button.active { background: #3B82F6; color: white; }
+    .content { display: none; }
+    .content.active-lang { display: block; }
+  </style>
+</head>
+<body>
+  <div class="lang-switch">
+    <button data-lang="pl" class="active">Polski</button>
+    <button data-lang="en">English</button>
+    <button data-lang="ua">Українська</button>
+  </div>
+
+  <div class="content active-lang" id="pl">
+    <h1>Polityka prywatności – nano4HR</h1>
+    <p>Aplikacja <strong>nano4HR</strong> (dostępna pod adresem <code>https://dobrychlopak87.github.io/nano4HR/</code>) działa w całości po stronie użytkownika.</p>
+    <ul>
+      <li>Nie zbieramy, nie przechowujemy ani nie przesyłamy żadnych danych osobowych na zewnętrzne serwery.</li>
+      <li>Wszystkie dane (wpisy czasu pracy, projekty, ustawienia) przechowywane są wyłącznie w pamięci przeglądarki (IndexedDB) na urządzeniu użytkownika.</li>
+      <li>Aplikacja nie używa plików cookie, Google Analytics ani żadnych mechanizmów śledzących.</li>
+      <li>Funkcja logowania przez Pi Network służy wyłącznie do weryfikacji tożsamości i odbywa się poprzez oficjalne Pi SDK – żadne dane nie są zapisywane po stronie aplikacji.</li>
+    </ul>
+    <p>Kontakt: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <div class="content" id="en">
+    <h1>Privacy Policy – nano4HR</h1>
+    <p>The <strong>nano4HR</strong> application (available at <code>https://dobrychlopak87.github.io/nano4HR/</code>) runs entirely on the user's side.</p>
+    <ul>
+      <li>We do not collect, store, or transmit any personal data to external servers.</li>
+      <li>All data (work time entries, projects, settings) is stored only in the browser's local storage (IndexedDB) on the user's device.</li>
+      <li>The app does not use cookies, Google Analytics, or any tracking mechanisms.</li>
+      <li>The Pi Network login function is used solely for identity verification via the official Pi SDK – no data is stored by the application.</li>
+    </ul>
+    <p>Contact: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <div class="content" id="ua">
+    <h1>Політика конфіденційності – nano4HR</h1>
+    <p>Додаток <strong>nano4HR</strong> (доступний за адресою <code>https://dobrychlopak87.github.io/nano4HR/</code>) працює повністю на стороні користувача.</p>
+    <ul>
+      <li>Ми не збираємо, не зберігаємо та не передаємо жодних персональних даних на зовнішні сервери.</li>
+      <li>Усі дані (записи робочого часу, проєкти, налаштування) зберігаються виключно в локальному сховищі браузера (IndexedDB) на пристрої користувача.</li>
+      <li>Додаток не використовує файли cookie, Google Analytics або будь-які механізми відстеження.</li>
+      <li>Функція входу через Pi Network використовується тільки для перевірки особи через офіційний Pi SDK – жодні дані не зберігаються додатком.</li>
+    </ul>
+    <p>Контакт: <a href="mailto:czernuszewicz.karol@gmail.com">czernuszewicz.karol@gmail.com</a>.</p>
+  </div>
+
+  <script>
+    (function() {
+      const buttons = document.querySelectorAll('.lang-switch button');
+      const contents = document.querySelectorAll('.content');
+      
+      function setLang(lang) {
+        buttons.forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+        contents.forEach(c => c.classList.toggle('active-lang', c.id === lang));
+        try { localStorage.setItem('nano4hr-docs-lang', lang); } catch(e) {}
+      }
+      
+      buttons.forEach(b => {
+        b.addEventListener('click', () => setLang(b.dataset.lang));
+      });
+      
+      // Auto-detect
+      let lang = 'pl';
+      try {
+        const stored = localStorage.getItem('nano4hr-docs-lang');
+        if (stored && ['pl','en','ua'].includes(stored)) lang = stored;
+        else {
+          const browserLang = (navigator.language || '').slice(0,2);
+          if (browserLang === 'uk') lang = 'ua';
+          else if (browserLang === 'en') lang = 'en';
+        }
+      } catch(e) {}
+      setLang(lang);
+    })();
+  </script>
+</body>
+</html>
